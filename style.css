@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    transition: linear .1s;
+}
+
+body {
+    background-image: url(/forest.bg.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(5px);
+}
+
+/* HEADER START */
+header {
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+    justify-content: space-around;
+    background-color: #fff;
+}
+
+header button {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+}
+
+header button:hover {
+    background-color: #e0e0e0;
+}
+
+header i {
+    padding-left: 10px;
+    font-size: 2em;
+}
+/* HEADER END */
+
+
+
+/*LOGIN START*/
+.loginSite {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.login, .data {
+    margin: auto;
+    width: 360px;
+    height: min-content;
+    padding: 20px;
+    border-radius: 10px;
+    background: #e0e0e0;
+}
+
+.login h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.login .form-group {
+    margin: 10px 0;
+}
+
+.login form button {
+    padding-left: 10px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.login form button[type="submit"] {
+    font-size: 1.5em;
+}
+/*LOGIN END*/
+
+
+/*POLL START*/
+.votingSite {
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    padding: 150px 10px;
+    overflow: scroll;
+    position: relative;
+    z-index: 0;
+}
+
+.poll {
+    z-index: -2;
+    background-color: #f0f0f0;
+    height: 350px;
+    width: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid #478339;
+}
+
+.poll .question {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.5em;
+}
+
+.poll .answers {
+    padding: 10px;
+}
+
+.poll .answers .answer {
+    background: transparent;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.poll .answers .answer.selected {
+    border: 2px solid #478339;
+}
+
+.poll .answers .answer span.precentage-value {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 40px;
+    transform: translateY(-50%);
+    color: #8d8d8d;
+}
+
+.poll .answers .answer span.precentage-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #cccccc;
+    transition: width 300ms ease-in-out;
+    z-index: -1;
+}
+
+.poll .del {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: center;
+}
+
+.poll i {
+    font-size: 1.5em;
+    color: #ff0000;
+    background: #f0f0f0;
+    border: 1px solid #ff0000;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.poll i:hover {
+    background-color: #ff0000;
+    color: #f0f0f0;
+}
+/*POLL END*/
+
+/*FOOTER // NEW POLL START*/
+footer {
+    border: 1px solid #478339;
+    background-color: #f0f0f0;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+}
+
+footer button {
+    margin: 10px;
+    padding: 10px 30px;
+    border-radius: 20px;
+    border: 1px solid #478339;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+footer button:hover {
+    background-color: #cccccc;
+}
+
+footer i {
+    font-size: 3em;
+}
+
+small {
+    color: #ff0000;
+}
+
+.data {
+    border: 1px solid #478339;
+    display: none;
+}
+
+.form-group {
+    margin: 20px 0;
+    width: 100%;
+}
+
+.form-group input {
+    margin: 5px 0;
+}
+
+
+/*FOOTER // NEW POLL END*/
+
+
+/*MEDIA START*/
+@media (max-width: 700px){
+    .poll {
+        width: 100%;
+    }
+}
+/*MEDIA END*/
+header {display: none;}
+.loginSite{display: flex;}
+.votingSite {display: none;}
+footer{display: none;}
