@@ -263,15 +263,19 @@ h1 {text-transform: uppercase;}
         font-size: 1.3em;
     }
 
-    .login input {
-        width: 95%;
-    }
+    #createPollForm {width: 95%;}
 
-    .login {
-        width: 90%;
-    }
+    .login input {width: 95%;}
 
-    .poll {
-        width: 95%;
-    }
+    .login {width: 90%;}
+
+    .poll {width: 95%;}
+
+    footer{width: 100%;}
+
+    #deletePoll { width: 80%;}
+
+    #delPollBtn{text-align: right;}
+    
+    #deletePoll input{ width: 100%; overflow: hidden;}
 }
