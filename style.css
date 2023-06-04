@@ -1,9 +1,15 @@
+:root {
+    --bg-color: #dddddd;
+    --main-color: #339b4a;
+}
+
 * {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-    transition: linear .1s;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 1px 0;    
+    transition: linear .2s;
 }
 
 body {
@@ -14,229 +20,258 @@ body {
     backdrop-filter: blur(5px);
 }
 
-/* HEADER START */
 header {
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    display: flex;
-    z-index: 1;
-    justify-content: space-around;
-    background-color: #fff;
-}
-
-header button {
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    border: none;
-    font-weight: bold;
-}
-
-header button:hover {
-    background-color: #e0e0e0;
-}
-
-header i {
-    padding-left: 10px;
-    font-size: 2em;
-}
-/* HEADER END */
-
-
-
-/*LOGIN START*/
-.loginSite {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: none;
-}
-
-.login, .data {
-    margin: auto;
-    width: 360px;
-    height: min-content;
-    padding: 20px;
-    border-radius: 10px;
-    background: #e0e0e0;
-}
-
-.login h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-.login .form-group {
-    margin: 10px 0;
-}
-
-.login form button {
-    padding-left: 10px;
-    width: 100%;
-    margin: 10px 0;
-}
-
-.login form button[type="submit"] {
-    font-size: 1.5em;
-}
-/*LOGIN END*/
-
-
-/*POLL START*/
-.votingSite {
-    height: 100vh;
-    width: 100%;
-    display: grid;
-    justify-content: center;
-    padding: 150px 10px;
-    overflow: scroll;
-    position: relative;
-    z-index: 0;
-}
-
-.poll {
-    z-index: -2;
-    background-color: #f0f0f0;
-    height: 350px;
-    width: 400px;
-    padding: 10px;
-    border-radius: 10px;
+    width: 100%;    
     margin: 20px 0;
-    border: 1px solid #478339;
-}
-
-.poll .question {
-    width: 100%;
+    padding: 0 50px;
     text-align: center;
-    padding: 10px;
-    font-size: 1.5em;
-}
-
-.poll .answers {
-    padding: 10px;
-}
-
-.poll .answers .answer {
-    background: transparent;
-    position: relative;
-    width: 100%;
-    height: 40px;
-    padding: 0 10px;
-    line-height: 40px;
-    margin-bottom: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-.poll .answers .answer.selected {
-    border: 2px solid #478339;
-}
-
-.poll .answers .answer span.precentage-value {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: 40px;
-    transform: translateY(-50%);
-    color: #8d8d8d;
-}
-
-.poll .answers .answer span.precentage-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: #cccccc;
-    transition: width 300ms ease-in-out;
-    z-index: -1;
-}
-
-.poll .del {
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    text-align: center;
-}
-
-.poll i {
-    font-size: 1.5em;
-    color: #ff0000;
-    background: #f0f0f0;
-    border: 1px solid #ff0000;
-    border-radius: 50px;
-    padding: 10px;
-}
-
-.poll i:hover {
-    background-color: #ff0000;
-    color: #f0f0f0;
-}
-/*POLL END*/
-
-/*FOOTER // NEW POLL START*/
-footer {
-    border: 1px solid #478339;
-    background-color: #f0f0f0;
     position: fixed;
-    bottom: 0;
-    text-align: center;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header p, header button {
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid var(--main-color);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 2em;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+}
+header span{padding: 0 10px;}
+
+header button:hover{background-color: #b9b9b9;}
+
+/*login site*/
+.loginArea {
     width: 100%;
-    padding: 20px 0;
-}
-
-footer button {
-    margin: 10px;
-    padding: 10px 30px;
-    border-radius: 20px;
-    border: 1px solid #478339;
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
-footer button:hover {
-    background-color: #cccccc;
-}
-
-footer i {
-    font-size: 3em;
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 small {
-    color: #ff0000;
+    color: red;
+    padding: 0 5px 5px 5px;
+    margin: auto;
+    display: flex;
+    width: 95%;
+    text-align: left;
 }
 
-.data {
-    border: 1px solid #478339;
+.login {
+    margin: 5px 0;
+    padding: 20px 10px;
+    border: 2px solid var(--bg-color);
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(225, 225, 225, 0.5);
+    width: 400px;
+}
+
+#loginBtn {
+    width: 95%;
+}
+
+.login:hover {border: 2px solid var(--main-color);}
+/**/
+
+/*polls*/
+.container{
+    padding-bottom: 200px;
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+    text-align: center;
     display: none;
 }
 
-.form-group {
-    margin: 20px 0;
+
+
+#pollsContainer {margin-top: 100px;}
+.poll {
+    font-size: 1.2em;
+    background-color: rgba(225, 225, 225, 0.5);
+    width: 400px;
+    margin: 20px auto;
+    border: 2px solid var(--bg-color);
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.poll:hover {border: 2px solid var(--main-color);}
+
+.option {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    padding: 5px 0;
+    background-color: var(--bg-color);
+    margin: 5px auto;
+    border-radius: 5px;
+    border: 1px solid var(--bg-color);
+}
+
+.option:hover {border: 1px solid var(--main-color);}
+
+.option button {
+    font-weight: bold;
+    background-color: rgba(225, 225, 225, 0.5);
+    border: 0;
+    width: 90%;
+    text-align: left;
+}
+/**/
+
+/*poll creator*/
+.form-container {
+    padding: 200px 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+}
+
+.form-container h1 {
+    width: 400px;
+    text-align: center;
+    background-color: rgba(225, 225, 225, 0.5);
+    border: 2px solid var(--bg-color);
+    border-radius: 20px 20px 0 0;
+    padding: 10px 0;
+    margin-bottom: 5px;
+}
+
+.form-container h1:hover { border: 2px solid var(--main-color); }
+
+.form-container form{
     width: 100%;
 }
 
-.form-group input {
-    margin: 5px 0;
+#createPollForm {
+    background-color: rgba(225, 225, 225, 0.5);
+    border: 2px solid var(--bg-color);
+    width: 400px;
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
 }
 
+#createPollForm:hover { border: 2px solid var(--main-color); }
 
-/*FOOTER // NEW POLL END*/
+.option-input input {
+    width: 80%;
+    border: none;
+    font-size: 1.2em;
+}
 
+.option-input{
+    width: 90%;
+    background-color: #fff;
+    margin: 5px auto;
+    border-radius: 5px;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
 
-/*MEDIA START*/
+#pollName {
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    text-align: center;
+    width: 90%;
+    padding: 5px;
+    border: 0;
+    border-radius: 5px;
+}
+
+#addOptionButton, #createButton {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    font-size: 1.2em;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 10px 0 40px 0;
+    width: 100%; 
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(225, 225, 225, 0.9);
+    border: 1px solid var(--main-color);
+}
+
+#openNclose {
+    width: 100px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid var(--main-color);
+}
+
+#openNclose i{
+    font-size: 3em;
+}
+
+#openNclose:hover{background-color: #b9b9b9;}
+
+#deletePoll {
+    width: 400px;
+    border: 2px solid var(--main-color);
+    background-color: var(--bg-color);
+    border-radius: 30px;
+    display: flex;
+    margin: 10px 0;
+}
+
+#delPollBtn:hover {
+    color: red;
+}
+
+#deletePoll input {
+    background-color: transparent;
+    font-size: 1.5em;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    overflow: hidden;
+}
+
+input, button { padding: 3px;}
+h1 {text-transform: uppercase;}
+
+/* media */
 @media (max-width: 700px){
+    header, header button, header p{
+        padding: 10px;
+        font-size: 1.3em;
+    }
+
+    .login input {
+        width: 95%;
+    }
+
+    .login {
+        width: 90%;
+    }
+
     .poll {
-        width: 100%;
+        width: 95%;
     }
 }
-/*MEDIA END*/
-header {display: none;}
-.loginSite{display: flex;}
-.votingSite {display: none;}
-footer{display: none;}
