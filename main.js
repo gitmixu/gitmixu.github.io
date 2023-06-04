@@ -1,224 +1,122 @@
-//kirjautuminen
-let loginEmail = document.getElementById('email');
-let loginPw = document.getElementById('password');
-let loginBtn = document.getElementById('loginBtn');
-let logOutBtn = document.querySelector('header button');
-
-loginBtn.addEventListener('click', (event) => {
-    if (loginPw.value == "" || loginEmail.value == "") { event.preventDefault(); return;}
-
-    else if (loginEmail.value == "admin@gmail.com" && loginPw.value == "admin"){
-        event.preventDefault();
-
-        let userName = document.createTextNode(loginEmail.value.split("@")[0]);
-        document.querySelector('header button').appendChild(userName);
-
-        let logOutIcon = document.createElement('i');
-        logOutIcon.classList.add("fa-solid", "fa-right-from-bracket");
-        document.querySelector('header button').appendChild(logOutIcon);
-
-
-        document.querySelector('.loginSite').style.display ="none";
-        document.querySelector('header').style.display = "flex";
-        document.querySelector('.votingSite').style.display = "flex";
-        document.querySelector('footer').style.display = "block";
-    }
-
-    else if (loginEmail.value != "admin@gmail.com"){
-        event.preventDefault();
-
-        let userName = document.createTextNode(loginEmail.value.split("@")[0]);
-        document.querySelector('header button').appendChild(userName);
-
-        let logOutIcon = document.createElement('i');
-        logOutIcon.classList.add("fa-solid", "fa-right-from-bracket");
-        document.querySelector('header button').appendChild(logOutIcon);
-
-        let delBtns = document.querySelectorAll('.del');
-        for (let i = 0; i < delBtns.length; i++){delBtns[i].style.display = 'none';}
-
-
-        document.querySelector('.loginSite').style.display ="none";
-        document.querySelector('header').style.display = "flex";
-        document.querySelector('.votingSite').style.display = "flex";
-        document.querySelector('footer').style.display = "none";
-    }
-});
-
-logOutBtn.addEventListener('click', () => {
-    logOutBtn.innerHTML = "";
-    document.querySelector('.loginSite').style.display ="flex";
-    document.querySelector('header').style.display = "none";
-    document.querySelector('.votingSite').style.display = "none";
-    document.querySelector('footer').style.display = "none";
-} )
-
-// Äänestyksenteko btn
 let toggleStatus = 0;
-let toggleStatusIcon = document.querySelector('.newPoll button i');
+let toggleStatusIcon = document.querySelector('#openNclose i');
 function toggleMenu() {
     if (toggleStatus == 1) {
-        document.querySelector('.data').style.display = 'none';
+        document.querySelector('.form-container').style.display = 'none';
+        document.getElementById('deletePoll').style.display = 'flex';
+        document.querySelector('.container').style.display = 'block';
         toggleStatusIcon.classList.remove('fa-xmark');
-        toggleStatusIcon.classList.add('fa-trash-can');
+        toggleStatusIcon.classList.add('fa-list');
         toggleStatus = 0;
     }
     else if (toggleStatus == 0) {
-        document.querySelector('.data').style.display = 'block';
-        toggleStatusIcon.classList.remove('fa-trash-can');
+        document.querySelector('.form-container').style.display = 'flex';
+        document.getElementById('deletePoll').style.display = 'none';
+        document.querySelector('.container').style.display = 'none';
+        toggleStatusIcon.classList.remove('fa-list');
         toggleStatusIcon.classList.add('fa-xmark');
         toggleStatus = 1;
     }
 }
 
-/* ÄÄNESTÄMINEN */
-let example = {
-    question:"Best programming language?",
-    answers:["C#", "Java", "Python", "JavaScript"],
-    pollCount: 20,
-    answersWeight: [4, 4, 2, 10],
-    selectedAnswer: -1
-};
-
-let pollDOMexample = {
-    question:document.querySelector(".poll .question"),
-    answers:document.querySelector(".poll .answers")
-};
-
-pollDOMexample.question.innerText = example.question;
-pollDOMexample.answers.innerHTML = example.answers.map(function(answer,i){
-    return (
-        `
-        <div class="answer" onclick="markAnswer('${i}')">
-            ${answer}
-            <span class="precentage-bar"></span>
-            <span class="precentage-value"></span>
-        </div>
-        `
-    );
-}).join("");
-
-function markAnswer(i){
-    example.selectedAnswer = +i;
-    try {
-        document.querySelector(".poll .answers .answer.selected").classList.remove("selected");
-    } catch(msg){}
-    document.querySelectorAll(".poll .answers .answer")[+i].classList.add("selected");
-    showResults();
+// Check if polls exist in localStorage
+let polls = localStorage.getItem('polls');
+if (polls) {
+    polls = JSON.parse(polls);
+} else {
+    // Define an array of poll objects if not found in localStorage
+    polls = [
+        {
+            name: "Poll 1",
+            options: [
+                { text: "Option 1", votes: 0 },
+                { text: "Option 2", votes: 0 },
+                { text: "Option 3", votes: 0 }
+            ]
+        },
+        {
+            name: "Poll 2",
+            options: [
+                { text: "Option 4", votes: 0 },
+                { text: "Option 5", votes: 0 },
+                { text: "Option 6", votes: 0 }
+            ]
+        }
+        // Add more poll objects as needed
+    ];
 }
 
-function showResults() {
-    let answers = document.querySelectorAll(".poll .answers .answer");
-    for (let i = 0; i < answers.length; i++) { 
-        let precentage = 0;
-        if (i == example.selectedAnswer){
-            precentage = Math.round(
-                (example.answersWeight[i]+1)*100/(example.pollCount+1)
-            );
-        } else {
-            precentage = Math.round(
-                (example.answersWeight[i])*100/(example.pollCount+1)
-            );
-        }
-        answers[i].querySelector(".precentage-bar").style.width = precentage + "%";
-        answers[i].querySelector(".precentage-value").innerText = precentage + "%";
-    }
+// Function to create polls from the array
+function createPolls() {
+  const pollsContainer = document.getElementById("pollsContainer");
+
+  polls.forEach(function(poll, pollIndex) {
+      const pollElement = document.createElement("div");
+      pollElement.className = "poll";
+      pollElement.innerHTML = "<h2>" + poll.name + "</h2>";
+
+      const optionsElement = document.createElement("div");
+      optionsElement.className = "options";
+      poll.options.forEach(function(option, optionIndex) {
+          const optionButton = document.createElement("button");
+          optionButton.className = "optionButton";
+          optionButton.textContent = option.text;
+
+          const voteCount = document.createElement("span");
+          voteCount.className = "voteCount";
+          voteCount.textContent = option.votes;
+
+          const optionContainer = document.createElement("div");
+          optionContainer.className = "option";
+          optionContainer.appendChild(optionButton);
+          optionContainer.appendChild(voteCount);
+
+          optionsElement.appendChild(optionContainer);
+      });
+
+      pollElement.appendChild(optionsElement);
+      pollsContainer.appendChild(pollElement);
+  });
 }
 
-/* ÄÄNESETYKSEN JULKAISU */
-let createBtn = document.querySelector('.createBtn');
-let pollName = document.getElementById('newPollName');
-let pollAnswers = document.querySelectorAll('input#pollAnswer');
-let errorText = document.getElementById('newPollError');
-let allQuestions = [];
 
-createBtn.addEventListener("click", () => {
-    if (pollName.value == "" ) {errorText.innerHTML = "How about Name?"; return; }
+// Function to handle the vote
+function vote(pollIndex, optionIndex) {
+    polls[pollIndex].options[optionIndex].votes++; // Increment the vote count for the selected option
+    console.log("Selected option for Poll " + (pollIndex + 1) + ":", polls[pollIndex].options[optionIndex].text);
+    console.log("Votes for Poll " + (pollIndex + 1) + ":", polls[pollIndex].options[optionIndex].votes);
 
-    for (let i=0; i<pollAnswers.length; i++) {
-        if (pollAnswers[i].value == ""){ errorText.innerHTML = "Please fill in all fields!"; allQuestions = []; return; }
-        else if (allQuestions.includes(pollAnswers[i].value) == true){ errorText.innerHTML = "Use different answers"; allQuestions = []; return; }
-        allQuestions.push(pollAnswers[i].value);
-    }
+    // Update the vote count displayed on the page
+    const voteCountElements = document.getElementsByClassName("voteCount");
+    voteCountElements[pollIndex * polls[pollIndex].options.length + optionIndex].textContent = polls[pollIndex].options[optionIndex].votes;
 
-    // KUN kaikki tiedot on oikein ((itse äänestyksen luonti))
-    errorText.innerHTML = ""
+    // Save polls in localStorage
+    localStorage.setItem('polls', JSON.stringify(polls));
 
-    console.log(allQuestions);
+    // Perform AJAX request or any other necessary action here
+}
 
-    let votingSite = document.querySelector('.votingSite');
-    let pollDiv = document.createElement('div');
-    let pollDivQues = document.createElement('div');
-    let pollDivAnsws = document.createElement('div');
-    let pollDel = document.createElement('button');
-    let pollDelX = document.createElement('i');
+// Event listener for voting
+document.getElementById("pollsContainer").addEventListener("click", function(event) {
+  if (event.target.classList.contains("optionButton")) {
+      const pollElement = event.target.closest(".poll");
+      const pollIndex = Array.from(pollElement.parentElement.children).indexOf(pollElement);
 
-    pollDiv.classList.add('poll');
-    pollDivQues.classList.add('question');
-    pollDivAnsws.classList.add('answers');
-    pollDel.classList.add('del');
-    pollDelX.classList.add('fa-solid', 'fa-trash-can');
+      const optionContainer = event.target.parentElement;
+      const optionIndex = Array.from(optionContainer.parentElement.children).indexOf(optionContainer);
 
-    votingSite.appendChild(pollDiv);
-    pollDiv.appendChild(pollDivQues);
-    pollDiv.appendChild(pollDivAnsws);
-    pollDiv.appendChild(pollDel);
-    pollDel.appendChild(pollDelX);
+      // Update the vote count for the selected option
+      polls[pollIndex].options[optionIndex].votes += 1;
 
-    // poll tiedot
-    let poll = {
-        question: pollName.value,
-        answers: allQuestions,
-        pollCount: 0,
-        answersWeight: [25, 25, 25, 25],
-        selectedAnswer: -1
-    };
+      // Update the vote count element
+      const voteCountElement = optionContainer.querySelector(".voteCount");
+      voteCountElement.textContent = polls[pollIndex].options[optionIndex].votes;
 
-    let pollDOM = {
-        question:pollDivQues,
-        answers:pollDivAnsws
-    };
-
-    pollDOM.question.innerText = poll.question;
-    pollDOM.answers.innerHTML = poll.answers.map(function(answer,i){
-    return ( 
-        `
-        <div class="answer" onclick="markAnswer('${i}')">
-            ${answer}
-            <span class="precentage-bar"></span>
-            <span class="precentage-value"></span>
-        </div>
-        ` 
-    ); }).join("");
-
-    function markAnswer(i){
-        poll.selectedAnswer = +i;
-        try {
-            document.querySelector(".poll .answers .answer.selected").classList.remove("selected");
-        } catch(msg){}
-        document.querySelectorAll(".poll .answers .answer")[+i].classList.add("selected");
-        showResults();
-    }
-
-    function showResults() {
-        let answers = document.querySelectorAll(".poll .answers .answer");
-        for (let i = 0; i < answers.length; i++) { 
-            let precentage = 0;
-            if (i == poll.selectedAnswer){
-                precentage = Math.round(
-                    (poll.answersWeight[i]+1)*100/(poll.pollCount+1)
-                );
-            } else {
-                precentage = Math.round(
-                    (poll.answersWeight[i])*100/(poll.pollCount+1)
-                );
-            }
-            answers[i].querySelector(".precentage-bar").style.width = precentage + "%";
-            answers[i].querySelector(".precentage-value").innerText = precentage + "%";
-        }
-    }
-
-    pollName.reset();
-    pollAnswers.reset();
+      // Save the updated polls array to localStorage
+      localStorage.setItem("polls", JSON.stringify(polls));
+  }
 });
 
+
+// Call the createPolls function to generate the polls from the array
+createPolls();
