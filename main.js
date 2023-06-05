@@ -19,8 +19,10 @@ function toggleMenu() {
     }
 }
 
-// Check if polls exist in localStorage
 let polls = localStorage.getItem('polls');
+
+// Check if polls exist in localStorage
+
 if (polls) {
     polls = JSON.parse(polls);
 } else {
@@ -120,3 +122,17 @@ document.getElementById("pollsContainer").addEventListener("click", function(eve
 
 // Call the createPolls function to generate the polls from the array
 createPolls();
+
+
+//delete poll
+const delPollBtn = document.getElementById('delPollBtn');
+const delPollName = document.getElementById('delPoll');
+
+delPollBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (delPollName.value == ""){return;}
+    else{
+        for (let i = 0; i < polls.length; i++) {
+            if (polls[i].name == delPollName.value){console.log(polls[i].name); localStorage.removeItem(polls[i].name); return;}
+    }}
+});

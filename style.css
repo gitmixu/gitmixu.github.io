@@ -275,6 +275,8 @@ h1 {text-transform: uppercase;}
 
     #deletePoll { width: 80%;}
 
+    .form-container h1 {width: 95%;}
+
     #delPollBtn{text-align: right;}
     
     #deletePoll input{ width: 100%; overflow: hidden;}
